@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Your Cart — Kiddys Colour Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Fredoka+One&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Open Sans',sans-serif;background:#f7f9fc;color:#1a202c;}
+nav{background:#1a3a6b;border-bottom:3px solid #FFD600;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;position:relative;z-index:999;}
+.nav-logo{font-family:'Fredoka One',sans-serif;font-size:22px;color:#FFD600;text-decoration:none;}
+.nav-logo span{color:#fff;}
+.nav-links{display:flex;align-items:center;list-style:none;gap:4px;}
+.nav-links a{color:#fff;text-decoration:none;padding:6px 12px;font-size:13px;font-weight:700;}
+.nav-links a:hover{color:#FFD600;}
+.nav-cta{background:#FF6B35;color:#fff!important;border-radius:999px;padding:8px 18px!important;}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;}
+.page-banner{background:#1a3a6b;padding:32px;text-align:center;}
+.page-banner h1{font-family:'Fredoka One',sans-serif;font-size:2rem;color:#FFD600;margin-bottom:8px;}
+.page-banner p{font-size:13px;color:rgba(255,255,255,.85);}
+.cart-page{max-width:900px;margin:0 auto;padding:40px 32px;}
+.cart-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:start;}
+.cart-box{background:#fff;border-radius:16px;border:2px solid #e2e8f0;overflow:hidden;}
+.cart-header{background:#1a3a6b;padding:16px 20px;}
+.cart-header h2{font-family:'Fredoka One',sans-serif;font-size:1.1rem;color:#FFD600;}
+.cart-body{padding:20px;}
+.cart-item{display:flex;gap:16px;align-items:flex-start;padding-bottom:20px;border-bottom:2px dashed #FFD600;margin-bottom:20px;}
+.item-img{width:80px;height:110px;object-fit:cover;border-radius:10px;border:2px solid #FFD600;flex-shrink:0;}
+.item-info h3{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#1a202c;margin-bottom:6px;}
+.item-info p{font-size:12px;color:#718096;margin-bottom:12px;}
+.qty-label{font-size:13px;font-weight:700;color:#374151;margin-bottom:6px;}
+.qty-wrap{display:flex;align-items:center;gap:8px;}
+.qty-btn{width:32px;height:32px;background:#FFD600;border:none;border-radius:50%;font-size:18px;font-weight:700;cursor:pointer;}
+.qty-btn:hover{background:#ffc400;}
+.qty-input{width:80px;padding:6px;border:2px solid #FFD600;border-radius:8px;font-size:16px;font-weight:700;text-align:center;font-family:'Open Sans',sans-serif;}
+.summary-box{background:#fff;border-radius:16px;border:2px solid #e2e8f0;overflow:hidden;position:sticky;top:20px;}
+.summary-header{background:#1a3a6b;padding:16px 20px;}
+.summary-header h2{font-family:'Fredoka One',sans-serif;font-size:1.1rem;color:#FFD600;}
+.summary-body{padding:20px;}
+.sum-row{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px;}
+.sum-row span{color:#718096;}
+.sum-row strong{color:#1a202c;font-weight:700;}
+.sum-divider{border:none;border-top:2px dashed #e2e8f0;margin:14px 0;}
+.sum-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.sum-total span{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#1a202c;}
+.sum-total strong{font-family:'Fredoka One',sans-serif;font-size:28px;color:#FF6B35;}
+.pay-btn{width:100%;background:#003087;color:#fff;padding:14px;border:none;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Open Sans',sans-serif;margin-bottom:12px;}
+.pay-btn:hover{background:#001f5e;}
+.back-btn{display:block;text-align:center;color:#718096;font-size:13px;text-decoration:none;font-weight:600;margin-bottom:12px;}
+.back-btn:hover{color:#FF6B35;}
+.secure{text-align:center;font-size:11px;color:#718096;}
+.card-logos{display:flex;justify-content:center;gap:8px;margin-top:10px;}
+.card-logos img{height:24px;border-radius:4px;}
+.no-refund{background:#fff9e6;border:2px solid #FFD600;border-radius:10px;padding:10px;margin-top:14px;font-size:11px;color:#718096;text-align:center;}
+footer{background:#1a3a6b;color:#fff;padding:32px;text-align:center;font-size:12px;margin-top:48px;}
+footer a{color:#FFD600;text-decoration:none;margin:0 8px;}
+@media(max-width:768px){
+  nav{padding:0 16px;}
+  .nav-links{display:none;position:absolute;top:60px;left:0;right:0;background:#1a3a6b;flex-direction:column;padding:16px;border-bottom:3px solid #FFD600;}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  .cart-grid{grid-template-columns:1fr;}
+  .cart-page{padding:24px 16px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Kiddys<span>ColourSheet</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#products">Sheets</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+    <li><a href="index.html#products" class="nav-cta">Shop Now 🎨</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page-banner">
+  <h1>🛒 Your Cart</h1>
+  <p>Choose your quantity and pay securely!!</p>
+</div>
+
+<div class="cart-page">
+  <div class="cart-grid">
+
+    <!-- CART ITEM -->
+    <div class="cart-box">
+      <div class="cart-header"><h2>Your Item</h2></div>
+      <div class="cart-body">
+        <div class="cart-item">
+          <img id="itemImg" src="" alt="" class="item-img"/>
+          <div class="item-info">
+            <h3 id="itemName">Loading...</h3>
+            <p>£0.99 per sheet — Type any quantity you want!! No limit!!</p>
+            <div class="qty-label">How many do you want??</div>
+            <div class="qty-wrap">
+              <button class="qty-btn" onclick="changeQty(-1)">−</button>
+              <input type="number" id="qtyInput" class="qty-input" value="1" min="1" oninput="updateTotal()" onchange="updateTotal()"/>
+              <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+          </div>
+        </div>
+        <a href="index.html#products" style="display:inline-block;background:#FFF9E6;color:#FF6B35;padding:10px 20px;border-radius:999px;font-size:13px;font-weight:700;text-decoration:none;border:2px solid #FFD600;">← Add More Sheets</a>
+      </div>
+    </div>
+
+    <!-- ORDER SUMMARY -->
+    <div class="summary-box">
+      <div class="summary-header"><h2>Order Summary</h2></div>
+      <div class="summary-body">
+        <div class="sum-row">
+          <span>Price Per Sheet</span>
+          <strong>£0.99</strong>
+        </div>
+        <div class="sum-row">
+          <span>Quantity</span>
+          <strong id="summaryQty">1</strong>
+        </div>
+        <hr class="sum-divider"/>
+        <div class="sum-total">
+          <span>Total</span>
+          <strong id="summaryTotal">£0.99</strong>
+        </div>
+
+        <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+          <input type="hidden" name="cmd" value="_xclick"/>
+          <input type="hidden" name="business" value="ashleydavis19913@outlook.com"/>
+          <input type="hidden" name="currency_code" value="GBP"/>
+          <input type="hidden" name="return" id="paypalReturn" value="https://kiddyscoloursheet.com/download.html"/>
+          <input type="hidden" name="cancel_return" value="https://kiddyscoloursheet.com/cart.html"/>
+          <input type="hidden" name="amount" id="paypalAmount" value="0.99"/>
+          <input type="hidden" name="item_name" id="paypalItemName" value="Kiddys Colour Sheet"/>
+          <button type="submit" class="pay-btn">💳 Pay with PayPal</button>
+        </form>
+
+        <a href="index.html#products" class="back-btn">← Continue Shopping</a>
+        <p class="secure">🔒 Secure payment via PayPal<br/>Pay with PayPal OR Credit/Debit Card!!</p>
+        <div class="card-logos">
+          <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" alt="PayPal"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa"/>
+        </div>
+        <div class="no-refund">⚠️ <strong>No Refunds</strong> — All sales final on digital downloads</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 KiddysColourSheet.com — All rights reserved.</p>
+  <p style="margin-top:8px;">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Use</a>
+    <a href="how-to-download.html">How To Download</a>
+    <a href="printing-tips.html">Printing Tips</a>
+    <a href="contact.html">Contact Us</a>
+  </p>
+</footer>
+
+<script>
+function fmt(n){return Number(n).toLocaleString('en-GB');}
+function fmtPrice(p){return '£'+parseFloat(p).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+
+// Get URL params
+var params = new URLSearchParams(window.location.search);
+var itemName = params.get('name') || 'Kiddys Colour Sheet';
+var itemImg = params.get('img') || '';
+var downloadUrl = params.get('download') || '';
+
+// Set PayPal return URL with download link
+var returnUrl = 'https://kiddyscoloursheet.com/download.html?name=' + encodeURIComponent(itemName);
+if(downloadUrl) returnUrl += '&download=' + encodeURIComponent(downloadUrl);
+document.getElementById('paypalReturn').value = returnUrl;
+
+// Set item details
+document.getElementById('itemName').textContent = itemName;
+document.getElementById('paypalItemName').value = itemName;
+if(itemImg){
+  document.getElementById('itemImg').src = itemImg;
+  document.getElementById('itemImg').alt = itemName;
+}
+
+function changeQty(change){
+  var input = document.getElementById('qtyInput');
+  var qty = parseInt(input.value) || 1;
+  qty += change;
+  if(qty < 1) qty = 1;
+  input.value = qty;
+  updateTotal();
+}
+
+function updateTotal(){
+  var qty = parseInt(document.getElementById('qtyInput').value) || 1;
+  if(qty < 1) qty = 1;
+  var total = qty * 0.99;
+  document.getElementById('summaryQty').textContent = fmt(qty);
+  document.getElementById('summaryTotal').textContent = fmtPrice(total);
+  document.getElementById('paypalAmount').value = total.toFixed(2);
+  document.getElementById('paypalItemName').value = itemName + ' x' + fmt(qty);
+}
+
+updateTotal();
+</script>
+
+</body>
+</html>
